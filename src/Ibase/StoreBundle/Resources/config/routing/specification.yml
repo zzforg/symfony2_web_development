@@ -1,0 +1,34 @@
+specification:
+    pattern:  /
+    defaults: { _controller: "IbaseStoreBundle:Specification:index" }
+
+specification_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IbaseStoreBundle:Specification:show" }
+
+specification_new:
+    pattern:  /new
+    defaults: { _controller: "IbaseStoreBundle:Specification:new" }
+
+specification_create:
+    pattern:  /create
+    defaults: { _controller: "IbaseStoreBundle:Specification:create" }
+    requirements: { _method: post }
+
+specification_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IbaseStoreBundle:Specification:edit" }
+
+specification_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IbaseStoreBundle:Specification:update" }
+    requirements: { _method: post|put }
+
+specification_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IbaseStoreBundle:Specification:delete" }
+    requirements: { _method: post|delete }
+    
+specification_showInProduct:
+    pattern: /product/{product_id}
+    defaults: { _controller: "IbaseStoreBundle:Specification:showInProduct" }

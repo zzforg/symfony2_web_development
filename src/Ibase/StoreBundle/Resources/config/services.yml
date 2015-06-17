@@ -1,0 +1,10 @@
+parameters:
+#    ibase_store.example.class: Ibase\StoreBundle\Example
+
+services:
+#    ibase_store.example:
+#        class: %ibase_store.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+   specificaions: 
+      id: specification_form
+      class: Ibase\StoreBundle\Form\SpecificationType

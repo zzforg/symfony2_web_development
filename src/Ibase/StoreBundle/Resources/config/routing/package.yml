@@ -1,0 +1,30 @@
+package:
+    pattern:  /
+    defaults: { _controller: "IbaseStoreBundle:Package:index" }
+
+package_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IbaseStoreBundle:Package:show" }
+
+package_new:
+    pattern:  /new
+    defaults: { _controller: "IbaseStoreBundle:Package:new" }
+
+package_create:
+    pattern:  /create
+    defaults: { _controller: "IbaseStoreBundle:Package:create" }
+    requirements: { _method: post }
+
+package_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IbaseStoreBundle:Package:edit" }
+
+package_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IbaseStoreBundle:Package:update" }
+    requirements: { _method: post|put }
+
+package_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IbaseStoreBundle:Package:delete" }
+    requirements: { _method: post|delete }

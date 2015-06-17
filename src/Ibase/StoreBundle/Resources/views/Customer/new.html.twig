@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+{% block body -%}
+    
+    <h1>Customer creation</h1>
+    {% block form_row %}
+    {{form_row(form.town)}}
+    {% endblock %}
+{#    <div class="form-group">
+        {% block form_row %}
+          {{ form_row(form.email, { 'attr': {'class': 'control'} }) }}
+          {{ form_row(form.firstName, { 'attr': {'class': 'control'} }) }}
+          {{ form_row(form.lastName, { 'attr': {'class': 'control'} }) }}
+          {{ form_row(form.street, { 'attr': {'class': 'control'} }) }}
+          {{ form_row(form.town, { 'attr': {'class': 'control'} }) }}
+          {{ form_row(form.country, { 'attr': {'class': 'control'} }) }}
+          {{ form_row(form.postcode, { 'attr': {'class': 'control'} }) }}
+        {% endblock%}
+        
+    </div>#}
+    
+
+  <ul class="record_actions">
+    <li>
+        <a href="{{ path('Purchase_show',{'id':7} ) }}">
+            continue to pay
+        </a>
+    </li>
+ </ul>
+{% endblock %}

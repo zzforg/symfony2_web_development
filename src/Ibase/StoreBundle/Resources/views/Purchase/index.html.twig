@@ -1,0 +1,132 @@
+{% extends '::ibaseAdmin.html.twig' %}
+{% block dashboard %}
+<div class="btn-group">
+<ul class="list-inline">
+    <li> <a   class="btn btn-primary" href="{{ path('Purchase_list_by_time', {'period': 1}) }}">Today</a></li>
+    <li> <a   class="btn btn-primary" href="{{ path('Purchase_list_by_time', {'period': 7}) }}">This Week</a></li>
+    <li> <a   class="btn btn-primary" href="{{ path('Purchase_list_by_time', {'period': 30}) }}">Last 30 Days</a></li>
+    <li> <a   class="btn btn-primary" href="{{ path('Purchase_list_by_time', {'period': 60}) }}">Last 60 Days</a></li>
+    <li> <a   class="btn btn-primary" href="{{ path('Purchase_list_by_time', {'period': 1800}) }}">Last 180 Days</a></li>
+</ul>
+</div>
+<div>
+  <h5>Search orders</h5>
+  <div style="margin-bottom:20px;">
+  <form class="form-inline" role="form">
+      <div class="form-group">
+          <lable>Customer Full Name</lable>
+          <input type="search" class="form-control" id="first" placeholder="first name">
+          <input type="search" class="form-control" id="family" placeholder="last name">
+      </div>
+      <div class="form-group">
+          <button class="btn btn-default" type="button">Search</button>
+      </div>
+  </form>
+  </div>
+  <div>
+      {{ render(controller('IbaseStoreBundle:Purchase:search' )) }}
+{#  <form class="form-inline" role="form">
+      <div class="form-group">
+    <select class="form-control">
+      <option>Customer Email</option>
+      <option>Product Name</option>
+      <option>Model Number</option>
+      <option>Order Number</option>
+    </select>
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputPassword2">By Product</label>
+        <input type="search" class="form-control" id="search_value">
+      </div>
+      <div class="form-group">
+          <button class="btn btn-default" type="button">Search</button>
+      </div>
+    </form>#}
+  </div>
+</div>
+{% endblock %}
+{% block section -%}
+    <div class="table-responsive">
+    <table class="table table-striped">
+       <div class="form-group">
+          <button class="btn btn-info" type="button" id="toShip">To ship</button>
+          <button class="btn btn-danger" type="button" id="orderComp">Order completed</button>
+      </div>       
+        <thead>
+            <tr>
+                <th><input type="checkbox" id= "cka" class="checkAll" /></th>
+                <th>Order#</th>
+                <th>Customer</th>
+                <th>Delivery fee</th>
+                <th>Total amount</th>
+                <th>Status</th>
+                <th>Tracking Number </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><input type="checkbox" id= "{{entity.id}}" class="checkItem" /></td>
+            <script>
+                $(document).ready(function() {
+                $("input[type=checkbox]").prop("checked", false);
+                var checkedItem[];
+                $("#cka").click(function(){
+                    if(this.checked) {
+                        $('.checkItem').each(function() { 
+                            this.checked = true;
+                        });
+                    } else {
+                        $('.checkItem').each(function() { 
+                            this.checked = false;  
+                        });
+                    }
+                });
+                $("#toShip").click(function() {
+                    $.ajax( {
+                        type: "POST",
+                        url: "",
+                        data: {
+                            id: // to be completed
+                        }
+                    })
+                })
+            });
+              
+            </script>
+                <td><a href="{{ path('Purchase_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.customer }}</td>
+                <td>{{ entity.deliveryfee }}</td>
+                <td>{{ entity.totalamount }}</td>
+                <td>{{ entity.status }}</td>
+                <td><button class="btn btn-default" data-toggle="modal" data-target="#{{entity.id}}Modal">
+                       {{entity.trackingnumber|default('Add Tracking Number')}} by {{entity.carrier|default('add carrier')}} 
+                    </button>
+                    {{ include(
+                       'IbaseStoreBundle:Parts:popUpWindow.html.twig', 
+                       {'entity': entity}) }}</td>
+                <td> 
+                <ul>
+                    <li>
+                        <a href="{{ path('Purchase_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('Purchase_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('Purchase_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    </div>
+    {% endblock %}

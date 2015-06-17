@@ -1,0 +1,23 @@
+ibase_home:
+    pattern:  /
+    defaults: { _controller: IbaseAppBundle:App:index }
+
+ibase_about_us:
+    pattern: /aboutus
+    defaults: { _controller: IbaseAppBundle:App:about }
+ 
+ibase_contact_us:
+    pattern: /contact
+    defaults: { _controller: IbaseAppBundle:App:contact }
+    
+ibase_render_contact:
+    pattern: /renderContact
+    defaults: { _controller: IbaseAppBundle:App:renderContact }    
+    
+render_menu:
+    pattern: /renderMenu
+    defaults: { _controller: IbaseAppBundle:App:renderMenu }
+    
+hot_product:
+    pattern: /renderHot
+    defaults: { _controller: IbaseAppBundle:App:renderHot }

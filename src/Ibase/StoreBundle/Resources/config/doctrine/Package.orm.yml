@@ -1,0 +1,30 @@
+Ibase\StoreBundle\Entity\Package:
+  type: entity
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    model:
+      type: string
+      length: 255
+      nullable: true
+    name:
+      type: string
+      length: 255
+      nullable: true
+  oneToOne:
+    product:
+      targetEntity: Product
+      inversedBy: package
+      cascade: [ "persist" ]
+      joinColumns:
+        product_id:
+          referencedColumnName: id
+          unique: true
+  oneToMany:
+    productPerPackage:
+      targetEntity: ProductPerPackage
+      mappedBy: package
+      cascade: [ "all" ]

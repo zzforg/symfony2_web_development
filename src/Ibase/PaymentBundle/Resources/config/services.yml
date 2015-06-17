@@ -1,0 +1,22 @@
+parameters:
+#    ibase_payment.example.class: Ibase\PaymentBundle\Example
+
+services:
+#    ibase_payment.example:
+#        class: %ibase_payment.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+#    ibase.payment.action.preparePaypalExpressCheckoutPayment:
+#        class: Ibase\CartBundle\Payment\Action\preparePaypalExpressCheckoutPaymentAction
+#        tags:   
+#            - {payment.action, { factory: a_factory }}
+            
+    ibase.payment.payum.api.factory:
+        class: ibase\PaymentBundle\Payum\Api\Factory
+        arguments:
+            - @service_container
+
+    ibase.payment.payum.paypal_express_checkout_api:
+        class: Payum\Paypal\ExpressCheckout\Nvp\Api
+        factory_service: ibase.payment.payum.api.factory
+        factory_method: createPaypalExpressCheckoutApi

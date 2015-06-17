@@ -1,0 +1,170 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/ibasestore/css/product.css'  filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body -%}
+<script language="javascript" type="text/javascript">
+    <!--
+    if( document.images ){
+        var defaultMainImage = "http://www.dascost.com/Product/11tvmount/tvm0011blk/audc-tvm0011blk-std.jpg";
+    }
+    function getDefaultMainImage(){
+        return defaultMainImage;
+    }
+    function swapImage( newImage ){
+        if( document.images ){
+            if( null != newImage ){
+                document.mainImage.src = newImage.src;
+            } else {
+                document.mainImage.src = defaultMainImage;
+            }
+        }
+    }
+    -->
+</script>
+<div id="main_left">
+    <div id="pro_heading">
+        <h1>{{entity.name}}</h1>
+    </div>
+    <!-- images display -->
+    <div id="product_img_display">
+        {% set images = entity.getImages%}
+        {% if images|length > 0 %}
+        <div id="bg_img">
+            <img name="mainImg" 
+                alt="" src="{{images[0].getWebPath}}" 
+                width="200">&nbsp;
+        </div>
+        <div id="sml-img">
+            {% for img in images%}            
+            <img style="cursor: pointer;" class="" alt="" src="{{img.getWebPath}}" 
+                 width="100" onclick="document.mainImg.src=this.src;">
+
+            {% endfor %}
+        </div>
+        {% else %}
+        <div id="bg_img">
+            <img name="mainImg" 
+                alt="No picture" src="" 
+                width="200">&nbsp;
+        </div>
+        <div id="sml-img">
+            {% for img in images%}            
+                <img style="cursor: pointer;" class="" alt="" src="{{img.getWebPath}}" 
+                     width="100" onclick="document.mainImg.src=this.src;">
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#spec" aria-controls="specifications" role="tab" data-toggle="tab">Specifications</a>
+            </li>
+            <li role="presentation">
+                <a href="#payment" aria-controls="payment" role="tab" data-toggle="tab">Payment</a>
+            </li>
+            <li role="presentation">
+                <a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">Delivery</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="spec">
+                <div id="spec_style">
+                    <table id="specifications" class="table table-hover">
+                        {# iterate over each existing tag and render its only field: name #}
+                        {% for specification in entity.specifications %}
+                        <tr>
+                            <th>{{ specification.fieldName }}:</th>
+                            <td> {{ specification.description }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="payment">
+                <table id="payment_table" class="table">
+                    <tr>
+                        <th>Payment method</th>
+                        <th>Preferred/Accepted</th>
+                    </tr>
+                    <tr>
+                        <td><img src="{{asset('bundles/ibasestore/images/payment.gif')}}"/></td>
+                        <td>Accepted</td>
+                    </tr>
+                    <tr>
+                        <td>Cash on pickup</td>
+                        <td>Accepted</td>
+                    </tr>
+                    <tr>
+                        <td>Bank Deposit</td>
+                        <td>Accepted</td>
+                    </tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="delivery">ccc</div>
+        </div>  
+    </div>
+
+    <div id="backBtn">
+        <a class="btn btn-default" href="{{ path('product') }}">
+            Back 
+        </a>  
+    </div>    
+</div>
+    
+<div id="main_right">
+    <table class="record_properties">
+        <tbody>
+            {#<tr>
+                <td id="product_name">{{ entity.name }}</td>
+            </tr>#}
+            <tr>
+                <td>Model: {{ entity.model }}</td>
+            </tr>
+            <tr>
+                <td>Brand: {{ entity.brand }}</td>
+            </tr>
+            {#<tr>
+                <td>Color: {{ entity.color }}</td>
+            </tr>
+            <tr>
+                <td>Material: {{ entity.material }}</td>
+            </tr>#}
+            <tr>
+                <td id="product_price">${{ entity.price }}</td>
+            </tr>
+            <tr>
+                <td><em>Shipping:</em>
+                    {% if entity.freight is null %}
+                        Freight
+                    {% elseif entity.freight == 0 %}
+                        Free Shipping
+                    {% else %}
+                        {{entity.freight}}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_start(cart_form) }}
+                    <div class="form-group form-group-lg">
+                    {{form_errors(cart_form.quantity)}}
+                    {{form_label(cart_form.quantity)}}
+                    {{form_widget(cart_form.quantity, {'attr': {'class':'form-control-lg','value':'1'} }) }}
+                    {{form_label(cart_form.submit)}}
+                    {{form_widget(cart_form.submit, {'attr': {'class':'btn btn-success btn-lg'} }) }}                   
+                    </div>
+                    {{ form_end(cart_form) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

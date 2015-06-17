@@ -1,0 +1,17 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: ibase258_ibase
+    database_user: ibase258_admin
+    database_password: ibasetrading
+    mailer_transport: gmail
+    mailer_host: 127.0.0.1
+    mailer_user: support@ibase-trading.com
+    mailer_password: ibasetrading
+    locale: en
+    secret: 190d2695cdd217e5c08e5619e46e9deb55f3099f
+    paypal.express_checkout.username: zzforg-facilitator_api1.hotmail.com
+    paypal.express_checkout.password: 1405563210
+    paypal.express_checkout.signature: AFcWxV21C7fd0v3bYYYRCpSSRl31A.93M.uorNqeuapBYkLJUKxHF9gl

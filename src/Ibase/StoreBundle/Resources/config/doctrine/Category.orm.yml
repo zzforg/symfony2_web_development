@@ -1,0 +1,42 @@
+Ibase\StoreBundle\Entity\Category:
+  type: entity
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    slug:
+      type: string
+      length: 128
+      gedmo:
+        slug:
+          separator: _
+          style: camel
+          fields:
+            - name
+    name:
+      type: string
+      length: '255'
+      nullable: false
+    description:
+      type: string
+      length: '255'
+      nullable: true
+  oneToMany:
+    product:
+      targetEntity: Product
+      mappedBy: category
+      cascade: [ "all" ]
+    subCategory:
+      targetEntity: category
+      mappedBy: topCategory
+      cascade: [ "persist" ]
+  manyToOne:
+    topCategory:
+      cascade: [ "all" ]
+      targetEntity: Category
+      inversedBy: subCategory
+#      joinColumns:
+#        category_id:
+#          referencedColumnName: id

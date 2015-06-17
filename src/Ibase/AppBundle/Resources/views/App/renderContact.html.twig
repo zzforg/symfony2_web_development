@@ -1,0 +1,52 @@
+{#{% extends '::base.html.twig' %}
+{% block title %}Contact Us{% endblock %}
+{% block body %}
+    {% block header %}
+    {% endblock %}#}
+<div id="contactForm" class="well well-lg">
+        <h1>Contact Us</h1>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        <form method="post" {#{{="" form_enctype(form)="" }}=""#}>
+            {{ form_start(form, {'attr':{'role':'form', 'class':'form-horizontal', 'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_errors(form.name) }}
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.email) }}
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.oderNumber) }}
+                {{ form_label(form.oderNumber) }}
+                {{ form_widget(form.oderNumber, {'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.itemNumber) }}
+                {{ form_label(form.itemNumber) }}
+                {{ form_widget(form.itemNumber, {'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.subject) }}
+                {{ form_label(form.subject) }}
+                {{ form_widget(form.subject, {'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                {{ form_errors(form.message) }}
+                {{ form_label(form.message) }}
+                {{ form_widget(form.message, {'attr': {'class': 'form-control'} }) }}
+            </div>
+            <button type="reset" value ="reset" class="btn btn-default btn-lg">Reset</button>
+            <button type="submit" class="btn btn-default btn-lg">Send</button>
+            {{ form_end(form) }}
+         </form>
+    </div>{#
+    {% block footer %}
+    {% endblock %}
+{% endblock %}#}

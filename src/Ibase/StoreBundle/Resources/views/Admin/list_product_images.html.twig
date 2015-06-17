@@ -1,0 +1,19 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+
+<table>
+    <tr>
+        <td>
+            {% for img in object.getImages %}
+            <img alt="{{object.getName()}}" src="{{img.getWebPath}}" 
+                 width="100" height="100"/>
+{#         <p>Name:{{img.getName}}</p>#}
+            {% endfor %}
+        </td>
+    </tr>
+</table>
+    
+
+    
+{% endblock %}

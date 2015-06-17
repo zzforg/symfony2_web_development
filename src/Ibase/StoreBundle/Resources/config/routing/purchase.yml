@@ -1,0 +1,43 @@
+Purchase:
+    pattern:  /
+    defaults: { _controller: "IbaseStoreBundle:Purchase:index" }
+    
+Purchase_list:
+    pattern:  /list/{status}
+    defaults: { _controller: "IbaseStoreBundle:Purchase:index" }
+    
+Purchase_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IbaseStoreBundle:Purchase:show" }
+
+Purchase_new:
+    pattern:  /new
+    defaults: { _controller: "IbaseStoreBundle:Purchase:new" }
+
+Purchase_create:
+    pattern:  /create
+    defaults: { _controller: "IbaseStoreBundle:Purchase:create" }
+    requirements: { _method: post }
+
+Purchase_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IbaseStoreBundle:Purchase:edit" }
+
+Purchase_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IbaseStoreBundle:Purchase:update" }
+    requirements: { _method: post|put }
+
+Purchase_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IbaseStoreBundle:Purchase:delete" }
+    requirements: { _method: post|delete }
+ 
+Purchase_list_by_time:
+    pattern:  /list/by/time/{period}
+    defaults: { _controller: "IbaseStoreBundle:Purchase:listByTime" }
+    
+Purchase_search:
+    pattern: /search
+    defaults: { _controller: "IbaseStoreBundle:Purchase:search" }
+    requirements: { _method: post }

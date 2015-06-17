@@ -1,0 +1,68 @@
+# Ibase/StoreBundle/Resources/config/admin.yml
+services:
+    sonata.admin.purchase:
+        class: Ibase\StoreBundle\Admin\PurchaseAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Store", label: "Order" }
+        arguments:
+            - ~
+            - Ibase\StoreBundle\Entity\Purchase
+            - IbaseStoreBundle:PurchaseAdmin
+        calls:
+            - [ setTranslationDomain, [IbaseStoreBundle]]
+            
+    sonata.admin.product:
+        class: Ibase\StoreBundle\Admin\ProductAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Stock", label: "Product" }
+        arguments:
+            - ~
+            - Ibase\StoreBundle\Entity\Product
+            - ~
+        calls:
+            - [ setTranslationDomain, [IbaseStoreBundle]]
+            
+    sonata.admin.specification:
+        class: Ibase\StoreBundle\Admin\SpecificationAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Stock", label: "Specification", show_in_dashboard: false }
+        arguments:
+            - ~
+            - Ibase\StoreBundle\Entity\Specification
+            - ~
+        calls:
+            - [ setTranslationDomain, [IbaseStoreBundle]]
+            
+    sonata.admin.image:
+        class: Ibase\StoreBundle\Admin\ImageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Stock", label: "Image", show_in_dashboard: false  }
+        arguments:
+            - ~
+            - Ibase\StoreBundle\Entity\Image
+            - ~
+        calls:
+            - [ setTranslationDomain, [IbaseStoreBundle]]
+            
+    sonata.admin.category:
+        class: Ibase\StoreBundle\Admin\CategoryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Stock", label: "Category" }
+        arguments:
+            - ~
+            - Ibase\StoreBundle\Entity\Category
+            - ~
+        calls:
+            - [ setTranslationDomain, [IbaseStoreBundle]]
+            
+    sonata.admin.customer:
+        class: Ibase\StoreBundle\Admin\CustomerAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Store", label: "Customer" }
+        arguments:
+            - ~
+            - Ibase\StoreBundle\Entity\Customer
+            - ~
+        calls:
+            - [ setTranslationDomain, [IbaseStoreBundle]]
+    

@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+{% block header %}
+    {{parent()}}
+    {% stylesheets 'bundles/ibasecart/css/cart.css'  filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+{% block title %}Ibase Cart:AaddToCart{% endblock %}
+
+{#{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@IbaseCartBundle/Resources/public/css/cart.css'  filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}#}
+        
+{% block body %}
+<div id="contact" class="panel panel-success">
+    <div class="panel-heading">
+        {% if order %}
+            <h2>You have just add a product to cart!</h2>
+        {% else %}
+            <h2>You failed to add!</h2>
+        {% endif %}
+    </div>
+    <div class="panel-body">
+        <div id="productsBought">
+            {{ render(controller('IbaseCartBundle:Cart:renderCart')) }}
+        </div>
+        <div class="page_navi">
+            <a href="{{ path('product') }}" class="btn btn-primary btn-lg" role="button">Keep shopping</a>
+            <a href="{{ path('ibase_list_cart') }}" class="btn btn-danger btn-lg" role="button">Check out</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

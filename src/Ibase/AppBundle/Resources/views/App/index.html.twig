@@ -1,0 +1,107 @@
+{% extends '::base.html.twig' %}
+{% block header %}
+    {{parent()}}
+    {% stylesheets 'bundles/ibaseapp/css/app.css'  filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+{% block title %}Ibase Trading Home{% endblock %}
+
+{% block body %} 
+    <div id="ads_carousel" class="well well-sm">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="{{asset('images/20141031 auib-ad-kite.jpg')}}" width="100%" alt="...">
+                    <div class="carousel-caption">
+                        {#<h3>Head 3</h3>
+                        <p>content</p>#}
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{asset('images/20141031 auib-ad-roof.jpg')}}" width="100%" alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{asset('images/20141031 auib-ad-susmailbox.jpg')}}" width="100%" alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{asset('images/20141031 auib-ad-timbergarden.jpg')}}" width="100%" alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{{asset('images/20141031 auib-ad-tvm.jpg')}}" width="100%" alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+{#              <span class="glyphicon glyphicon-chevron-left"></span>#}
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+{#              <span class="glyphicon glyphicon-chevron-right"></span>#}
+            </a>
+        </div>
+    </div>
+
+    <div id="hot_product" class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Top Sellers</h3>
+        </div>
+        <div class="panel-body">
+            {{ render(controller('IbaseAppBundle:App:renderHot')) }}
+        </div>
+    </div>
+
+    <div id="hot_link" class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Hot Links!</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6 col-md-2 col-md-offset-1">
+                    <div class="thumbnail">
+                        <a href="http://stores.ebay.com.au/iBase-Trading">
+                            <img src="{{asset('images/ebayshop300x150.jpg')}}" alt="image">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-2 col-md-offset-2">
+                    <div class="thumbnail">
+                        <a href="http://stores.ebay.com.au/iBase-Trading">
+                            <img src="{{asset('images/logo-owned gcamp300.jpg')}}" alt="image">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-2 col-md-offset-2">
+                    <div class="thumbnail">
+                        <a href="https://www.sitelock.com/verify.php?site=ibasetrading.com.au" 
+                           onclick="window.open('https://www.sitelock.com/verify.php?site=ibasetrading.com.au','SiteLock','width=600,height=600,left=160,top=170');return false;" >
+                            <img alt="PCI Compliance and Malware Removal" 
+                                 title="SiteLock" 
+                                 src="//shield.sitelock.com/shield/ibasetrading.com.au">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

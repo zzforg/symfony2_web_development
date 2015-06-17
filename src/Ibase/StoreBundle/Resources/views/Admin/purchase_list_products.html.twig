@@ -1,0 +1,24 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field%}
+{% set products = object.purchasePerItem%} 
+
+<table>
+    <tr>
+        <th>Img</th>
+        <th>Item</th>
+        <th>Qty</th>
+    </tr>
+    {% for pro in products%}
+    <tr>
+        {% if pro.product.images|length > 0 %}
+        <td style="border:solid 1px"><img src="{{pro.product.images[0].webPath}}" width="80" heigt="80"></td>
+        {% else %}
+        <td style="border:solid 1px">No image</td>
+        {% endif %}
+        <td style="border:solid 1px">{{pro.product.model}} </td>
+        <td style="border:solid 1px">{{pro.quantity}} </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

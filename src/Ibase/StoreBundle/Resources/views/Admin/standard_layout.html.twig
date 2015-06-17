@@ -1,0 +1,38 @@
+{# File src/Ibase/Bundle/StoreBundle/Resources/views/Admin/standard_layout.html.twig #}
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/Ibasestore/js/jquery.floatThead.min.js') }}" type="text/javascript"></script>    
+    <script src="{{ asset('bundles/Ibasestore/js/jQuery_admin.js') }}" type="text/javascript"></script>
+{% endblock %}
+{#    {% block sonata_nav %}
+    {% endblock %}#}
+{% block sonata_top_nav_menu %}
+    <div class="navbar-right">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-plus-square fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                {% include admin_pool.getTemplate('add_block') %}
+            </li>
+            <li class="dropdown user-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li role="presentation">
+                        User: <strong>{{app.user.username}}</strong>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a href="{{path("logout")}}">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% endblock%}

@@ -1,0 +1,116 @@
+{% extends '::base.html.twig' %}
+{% block title %}Payment{% endblock %}
+{% block cartBtn %} {% endblock%}
+{% block body%}
+{#session set#}
+{% set total = app.session.get('Payment_Amount') %}
+<div>
+    <div id="contact" class="panel panel-success">
+        <div class="panel-heading">Your Contact Details</div>
+        <div class="panel-body">
+            {% if hasCustomer == true %}
+                {% for i in customerDetails %}
+                <table class="table">
+                    <tr>
+                        <th>Contact details</th>
+                        <th>Shipping Details</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>{{i.FirstName}} {{i.LastName}}</p>
+                            <p>{{i.email}}</p>
+                            <p>{{i.contact}}</p>
+                        </td>
+                        <td>
+                            <p>Adress: {{i.street}}, {{i.town}}, {{i.state}}</p>
+                            <p>Postcode: {{i.postcode}}</p>
+                        </td>
+                    </tr>
+                </table>
+            <div id="total_amount">
+                <p><strong>Payment Amount: {{total}}</strong></p>
+            </div>
+                <!-- Large modal -->
+                <button class="btn btn-primary" data-toggle="modal" 
+                        data-target=".bs-example-modal-lg">Contact Us</button>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="flash-notice">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                <div class="modal fade bs-example-modal-lg" tabindex="-1" 
+                     role="dialog" aria-labelledby="myLargeModalLabel" 
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            {{ render(controller('IbaseAppBundle:App:renderContact', 
+                                { 'request' : app.request })) }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                    <p>No customer details</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if freight %}
+        <div id="freight_request" class="panel panel-success">
+            <div class="panel-heading">Payment - Add freight request</div>
+            <div class="panel-body">
+                <div id="paypal" class="well well-lg">
+                    <h3>Thank you for purchasing product in iBase store!</h3>
+                    <p>As record shows some of the products in your Shopping Cart 
+                    require add freight. You may need to request add freight 
+                    before processing the payment.</p>
+                    <p>Please click the button to request add freight to your 
+                    final bill. We will send an email with a total price ASAP!
+                    Thank you for your co-operation!</p>
+                    <a href="{{ path('ibase_placeOrder') }}" class="btn btn-primary 
+                       btn-lg" role="button">Request Total Amount</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div id="method" class="panel panel-success">
+            <div class="panel-heading">Payment Methods</div>
+            <div class="panel-body">      
+                <!-- Paypal payment --> 
+                <div id="paypal" class="well well-lg">
+                    <img src="https://c11313718.ssl.cf2.rackcdn.com/img/paypallogo.d64c035f8c52.png" alt="PayPal">
+                    <p>
+                        Safely pay by Credit Card (including Amex) with your PayPal account via PayPal's secure payment gateway.
+                    </p>
+                    <a href="{{ path('ibase_placeOrder') }}">
+                        <img src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif' 
+                               border='0' align='top' alt='Check out with PayPal'/>
+                    </a>
+                </div>
+
+                <!-- Pick up -->
+                <div id="pick" class="well well-lg">
+                    <h3>Pick up</h3>
+                    <p>For customers want to pick up is only suitable for Brisbane local 
+                    areas.</p>
+                    <h3>Our address: Unit 23, 256 Musgrave Rd, Coopers Plains, QLD, 4108.</h3>
+                    <h4>Openning Hours:</h4>
+                    <p>Tuesday, Thurday & Friday: 13:30 - 16: 00</p>
+                    <p>Payment Methods: EFTPOS or CASH</p>
+                    <a href="{{ path('ibase_pickUp') }}" class="btn btn-primary btn-lg" role="button">Pick up</a>
+                </div>          
+
+                <!-- Bank transfer -->
+                <div id="pick" class="well well-lg">
+                    <h3>Bank Deposit</h3>
+                    <p>Purchased items will be shipped after payment has been cleared.</p>
+                    <p>Our prices are 10% GST inclusive. Tax invoice is available upon request.</p>
+                    <p>All prices for items and shipping costs are quoted in Australian Dollars.</p>
+                    <p>Please use your <strong>order number<strong> as the reference to avoid delays in identifying your payment.</p>
+                    <a href="{{ path('ibase_pickUp') }}" class="btn btn-primary btn-lg" role="button">Bank Deposit</a>
+                </div>   
+            </div>   
+        </div>
+    {% endif%}
+    
+</div>
+{% endblock%}

@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}IbaseCartBundle:Cart:removeFromCart{% endblock %}
+
+{% block body %}
+{%if success %}
+<h1>The item has been removed from cart!</h1>
+{% else %}
+<h1>Oops! There was an error, please try again!</h1>
+{% endif %}
+<a href="{{ path('ibase_list_cart') }}" class="btn btn-primary btn-lg" 
+           role="button">Back to shopping cart</a>
+{% endblock %}

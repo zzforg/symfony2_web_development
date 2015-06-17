@@ -1,0 +1,58 @@
+Ibase\StoreBundle\Entity\Customer:
+    properties:
+        email:
+            - NotBlank: 
+                message: The "eamil address" should not be blank.
+            - Email:
+                message: The email "{{ value }}" is not a valid email.
+        first_name:
+            - NotBlank: 
+                message: The field "first name" should not be blank.
+            - Type:
+                type: string
+                message: The "{{ value }}" is not a valid input.
+        last_name:
+            - NotBlank: 
+                message: The field "last name" should not be blank.
+            - Type:
+                type: string
+                message: The "{{ value }}" is not a valid input.
+        street:
+            - NotBlank: 
+                message: The field "street" should not be blank.
+        town:
+            - NotBlank: 
+                message: The field "town" should not be blank.
+        state:
+            - NotBlank: 
+                message: The field "state" should not be blank.
+            - Choice:
+                choices: [ACT, NSW, VIC, QLD, SA, WA, TAS, NT]
+                message: Please choose a valid state.
+        country:
+            - NotBlank: 
+                message: The field "country" should not be blank.
+        postcode:
+            - NotBlank: 
+                message: The field "postcode" should not be blank.
+            - Type:
+                type: integer
+                message: The value {{ value }} is not a valid postcode.
+            - Length:
+                min: 4
+                max: 4
+                minMessage: Please enter {{ limit }} digital postcode number
+                maxMessage: Please enter {{ limit }} digital postcode number
+        contact:
+            - NotBlank: 
+                message: The field "contact" should not be blank.
+            - Type:
+                type: integer
+                message: The value {{ value }} is not a valid phone number.
+            - Length:
+                min: 8
+                max: 12
+                minMessage: Your phone number must be at least {{ limit }} digital numbers.
+                maxMessage: Your phone number can not be longer than {{ limit }} digital numbers.
+        
+                

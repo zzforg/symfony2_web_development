@@ -1,0 +1,30 @@
+Customer:
+    pattern:  /
+    defaults: { _controller: "IbaseStoreBundle:Customer:index" }
+
+Customer_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IbaseStoreBundle:Customer:show" }
+
+Customer_new:
+    pattern:  /new
+    defaults: { _controller: "IbaseStoreBundle:Customer:new" }
+
+Customer_create:
+    pattern:  /create
+    defaults: { _controller: "IbaseStoreBundle:Customer:create" }
+    requirements: { _method: post }
+
+Customer_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IbaseStoreBundle:Customer:edit" }
+
+Customer_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IbaseStoreBundle:Customer:update" }
+    requirements: { _method: post|put }
+
+Customer_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IbaseStoreBundle:Customer:delete" }
+    requirements: { _method: post|delete }

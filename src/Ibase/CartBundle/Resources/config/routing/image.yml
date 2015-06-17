@@ -1,0 +1,30 @@
+image:
+    pattern:  /
+    defaults: { _controller: "IbaseCartBundle:Image:index" }
+
+image_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IbaseCartBundle:Image:show" }
+
+image_new:
+    pattern:  /new
+    defaults: { _controller: "IbaseCartBundle:Image:new" }
+
+image_create:
+    pattern:  /create
+    defaults: { _controller: "IbaseCartBundle:Image:create" }
+    requirements: { _method: post }
+
+image_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IbaseCartBundle:Image:edit" }
+
+image_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IbaseCartBundle:Image:update" }
+    requirements: { _method: post|put }
+
+image_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IbaseCartBundle:Image:delete" }
+    requirements: { _method: post|delete }

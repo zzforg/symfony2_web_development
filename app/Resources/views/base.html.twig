@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}ibase Trading{% endblock %}</title>
+        <!-- Stylesheets-->
+        {% block stylesheets %}
+            <!-- Bootstrap -->
+            {% stylesheets '@bootstrap_less' combine=true filter='cssrewrite' %}  
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />  
+                <link href="{{ asset('/css/main.css') }}" rel="stylesheet" />
+            {% endstylesheets %}
+        {% endblock %} 
+            
+        <!-- Javascripts-->    
+        {% block javascripts %}  
+        {% javascripts '@jquery_js' '@bootstrap_js' filter='?yui_js' combine=true %}  
+            <script src="{{ asset_url }}"></script>  
+        {% endjavascripts %}        
+        {% endblock %} 
+            {#<script type="text/javascript" 
+            src="{{ asset('js/jquery-1.8.3.min.js') }}"></script>#}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <!--This section gets records from session -->
+    {% set cart = app.session.get('cart') %}
+    <body>
+        <div id='container'>
+            <div id="header">
+            {% block header %}
+                <div id="head_img">
+                    <a href="{{ path('ibase_home') }}">
+                        <img src="{{asset('images/ibase_logo.jpg')}}" 
+                             alt="ibase Trading" height="100"/>
+                    </a>
+                </div>
+                <!-- navigation bar-->
+                {% block menuBar%}
+                    {% render url('render_menu') %}
+                {% endblock %}
+                {#                        {% block searchbar %}
+                        <div class='navbar-collapse collapse'>
+                        <form class="form-search navbar-form navbar-right">
+                                <div class="input-append">
+                                  <input type="text" class="span2 search-query">
+                                  <button type="submit" class="btn btn-small">Search</button>
+                                </div>            
+                            </form>
+                        </div>
+                        {%endblock%}#}
+                <!--bar ends -->
+                {% block cartBtn %}
+                <div class="dropdown" id="cartBtn">
+                    <a data-toggle="dropdown" class="btn btn-lg" 
+                               role="button" href="#">
+                       <span class="badge pull-right">{{ cart|length }}</span>
+                       <img src="{{asset('images/icons/shopping cart.png')}}" 
+                             alt="Shopping Cart"
+                             width="35"
+                             height="35"/> 
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li>
+                            {{ render(controller('IbaseCartBundle:Cart:renderCart')) }}
+                        </li>
+                        <li>
+                            <a href="{{ path('ibase_list_cart') }}" 
+                               class="btn btn-danger btn-lg" 
+                               role="button">
+                                Check out
+                            </a>
+                        </li>
+                    </ul>
+               </div>
+               {% endblock %}
+            {% endblock %}
+            </div>
+            <div id="sidebar">
+                {% block sidebar %}
+                    {#<!-- the menu --> 
+                    <div id="menu" >
+                        <div id="tree1">
+                            <script> 
+                                var data = [
+                                {
+                                   label: 'Roof Tent,Awning & Side Tent',
+                                   children: [
+                                       { label: '1.4M Roof Tent' },
+                                       { label: '1.8M Roof Tent' },
+                                       { label: '2.5mx2m(pullo​ut) Awning ' },
+                                       { label: '2.5mx3m(pullo​ut) Awning ' },
+                                       { label: '2mx2.5m(pullo​ut) Awning ' },
+                                       { label: 'Side Tent and Others ' }
+                                   ]
+                                },
+                                {
+                                   label: 'Mail Box',
+                                   children: [
+                                       { label: 'Cast Aluminium Mail Box' },
+                                       { label: 'House Number' },
+                                       { label: 'Stainless Steel Mail Box ' }
+                                   ]
+                                },
+                                {
+                                   label: 'Garden',
+                                },
+                                {
+                                   label: 'BBQ Rack',
+                                },
+
+                                {
+                                   label: 'Sports',
+                                },
+                                {
+                                   label: 'TV Mount',
+                                }
+                                ];
+                                
+                                $('#tree1').tree({
+                                    data: data
+                                });
+                           </script>
+                        </div>
+                    </div>#}
+                {% endblock %}
+            </div>
+            <div id="content">
+                <h2>This website is still under construction, appology for any inconvenience.</h2>
+                {% block body %}
+                    
+                {% endblock %}
+            </div>
+            <div id="footer">
+                {% block footer %}
+                    <div id="botList">
+                        <ul class="siteMap">
+                            <li>About ibase Trading</li> |
+                            <li>Ebay Store</li> |
+                            <li>Contact Us</li> |
+                            <li><a href="/admin/dashboard">Admin Login</a></li>
+{#                            <li><a href="{{path('admin')}}">Admin Login</a></li>#}
+                        </ul>
+                    </div>
+                    {#<div id="sitelock_shield_logo" class="fixed_btm" 
+                         style="position:absolute;bottom:1%;right:1%;">
+                        <a href="https://www.sitelock.com/verify.php?site=ibasetrading.com.au" 
+                           onclick="window.open('https://www.sitelock.com/verify.php?site=ibasetrading.com.au','SiteLock','width=600,height=600,left=160,top=170');return false;" >
+                            <img alt="PCI Compliance and Malware Removal" 
+                                 title="SiteLock" 
+                                 src="//shield.sitelock.com/shield/ibasetrading.com.au">
+                        </a>
+                    </div>#}
+                    <div id="botLine" style="color:white">
+                        <p>Powered by Gary and Jue</p>
+                        <p>ibase Trading Pty Ltd &copy 2014</p>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>     
+    </body>
+</html>

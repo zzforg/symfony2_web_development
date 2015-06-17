@@ -1,0 +1,34 @@
+Category:
+    pattern:  /
+    defaults: { _controller: "IbaseStoreBundle:Category:index" }
+
+Category_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IbaseStoreBundle:Category:show" }
+
+Category_new:
+    pattern:  /new
+    defaults: { _controller: "IbaseStoreBundle:Category:new" }
+
+Category_create:
+    pattern:  /create
+    defaults: { _controller: "IbaseStoreBundle:Category:create" }
+    requirements: { _method: post }
+
+Category_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IbaseStoreBundle:Category:edit" }
+
+Category_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IbaseStoreBundle:Category:update" }
+    requirements: { _method: post|put }
+
+Category_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IbaseStoreBundle:Category:delete" }
+    requirements: { _method: post|delete }
+
+Category_list_product:
+    pattern:  /{slug}
+    defaults: { _controller: "IbaseStoreBundle:Category:listByCategory" }

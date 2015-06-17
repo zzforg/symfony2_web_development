@@ -1,0 +1,70 @@
+
+{%if empty %}
+<p>Your cart is empty!</p>
+{% endif %}
+
+{% set cart = app.session.get('cart') %}
+{% if product %}
+{% set sum = '0' %}
+{% set itemSub = '0'%}
+<div class="cart-list">
+    <table class="table table-hover">
+        <thead>
+        </thead>
+        <tbody>
+            {% for item in product %}
+                {% if item %}
+                {% set sub = '0'%}
+                {% set sub = "#{item.price*cart[item.id]}" %}
+                {% set itemSub = itemSub + sub %}
+                {% set images = item.getImages %}
+            <tr>
+                <td>
+                    {% if images|length > 0 %}
+                    <img src="{{images[0].getWebPath}}" 
+                         alt="Ibase Trading" width='80px' height='80px'/>
+                    {% else %}
+                    <img src="" 
+                         alt="no pic" width='80px' height='80px'/>
+                    {% endif %}
+                </td>
+                <td>
+                    <dt>
+                        <a href="{{ path('product_show', {'id':item.id})}}">
+                                {{item.name}}
+                        </a>
+                    </dt>
+                </td>
+                <td>
+                    <dl>
+                        <dd>
+                            <small>Qty:{{cart[item.id]}}</small>
+                        </dd>
+                        <dd>
+                            {% if item.getFreight is not null %}
+                            <small>Shipping:{{item.getFreight}}</small>
+                            {% else %}
+                            <small>Shipping:<strong>Freight</strong></small>
+                            {% endif %}
+                        </dd>
+                        <dd>
+                            <small>${{sub}}</small>
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="info">
+                <td colspan="2" align="right"><strong>Total:</strong></td>
+                {% set sum = "#{sum + itemSub}"%}
+                <td><p class="text-center">${{sum}}</p></td>
+            </tr>
+        </tfoot>
+
+    </table>
+</div>
+
+{% endif %} 

@@ -1,0 +1,147 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Ibase Shopping Cart{% endblock %}
+{% block cartBtn %} {% endblock%}
+{% block body %}
+{% block javascripts %} 
+    {% javascripts '@jquery_js' '@bootstrap_js' '@IbaseCartBundle/Resources/public/js/*' filter='?yui_js' combine=true %}  
+            <script type="text/javascript" src="{{ asset_url }}"></script>  
+    {% endjavascripts %}     
+{% endblock %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h1 class="panel-title">Shopping Cart</h1>
+    </div>
+    <div class="panel-body">
+    {%if empty %}
+        <h2>Your shopping cart is empty!</h2>
+        <a href="{{ path('product') }}" class="btn btn-primary btn-lg" 
+           role="button">Go back to shopping</a>
+    {% else %}
+        <h2>You got something to buy!</h2>
+{# Here is the session vars to this page       #}
+    {% set cart = app.session.get('cart') %}
+    {% set customer = app.session.get('customer') %}
+    {% set total = app.session.get('Payment_Amount')%}    
+{#  session vars end here      #}
+    <div class="cart-list">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    <input type="checkbox" id="checkAll" />
+                </th>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Item Price</th>
+                <th>Qty.</th>
+                <th>Sub Total</th>
+            {% if product %}
+            </tr>
+            {% set sum = '0' %}
+            {% for item in product %}
+                {% if item %}
+                {% set images = item.getImages %}
+                <tr>
+                    <td>
+                        <input type="checkbox" id="{{item.id}}" 
+                               class="checkBox" />
+                    </td>
+                    <td>
+                        {% if images|length > 0 %}
+                        <img src="{{images[0].getWebPath}}" 
+                             alt="Ibase Trading" width='100px' height='100px'/>
+                        {% else %}
+                        <img src="" alt="no pic" width='100px' height='100px'/>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('product_show', {'id':item.id})}}">
+                            {{item.name}}
+                        </a>
+                    </td>
+                    <td>${{item.price}}</td>
+                    <td>
+                        <input type="number" class="form-control" 
+                               id="qty{{item.id}}" name="qty" 
+                               value="{{cart[item.id]}}" size="3" min="1" />
+                    </td>
+
+                    {% set sub = '0'%}
+                    {% set sub = "#{item.price*cart[item.id]}" %}
+{#                    {% set sum = "#{sum + sub}"%}#}
+                    {% set sum = total%}
+                    <td>$<span class="subTotal" id="sub{{item.id}}">{{sub}}</span></td>
+                <script>
+                    $("#qty{{item.id}}").change(function(){
+                        var val = parseInt(this.value);
+                        var subTotal = 0;
+                        subTotal = parseFloat({{item.price}} * val).toFixed(2);
+{#                        sum = parseFloat(sum) + subTotal ;#}
+                        $.ajax({
+                             type: "POST",
+                             url: "/app_dev.php/numAjax",
+                             data: {
+                               num: this.value,
+                               id: {{item.id}},
+                             },
+                             dataType: "json",
+                             success: function(response) {
+                                 $("#sub{{item.id}}").html(subTotal);
+                                 $("#sum").html(response.total);
+                             }
+                         });
+                    });
+                </script>
+                    <td><a href="removeCart/{{item.id}}">Remove Item</a></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><p class="alert"></p></td>
+                    <td><strong>Total:</strong></td>
+                    <td>$<span id="sum">{{sum}}</span></td>
+                </tr>
+         {% endif %}        
+        </table>
+        <a href="{{ path('product') }}" class="btn btn-primary btn-lg" 
+           role="button">Go back to shopping</a>
+
+        <button type="button" class="btn btn-primary btn-lg" onclick="rm()" 
+                id="rmSelected">
+            Remove selected
+        </button>
+            <script>
+                function rm(){
+                    var ids = [];
+                    $(".checkBox").each(function(){
+                        if(this.checked===true){
+                            ids.push(this.id);
+                            $.ajax({
+                                type: "POST",
+                                url: "/app_dev.php/multiDelAjax",
+                                data: {
+                                  ids: ids,
+                                },
+                                dataType: "json",
+                                success: function(response) {
+                                    console.log(response);
+                                    window.location.href = "{{ url('ibase_list_cart')}}";
+                                }
+                            });
+                        } else {
+                        
+                        }
+                    });
+                    
+                    
+                 };
+            </script>
+        <a href="{{ path('check_out') }}" class="btn btn-danger btn-lg" 
+           role="button">Check Out</a>
+    </div>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

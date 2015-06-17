@@ -1,0 +1,62 @@
+#resource routes
+IbaseStoreBundle_routes:
+    resource: "@IbaseStoreBundle/Resources/config/routing.yml"
+
+#bundle routes
+ibase_list_cart:
+    pattern: /listCart
+    defaults: { _controller: IbaseCartBundle:Cart:listCart }
+
+ibase_add_cart:
+    pattern: /addToCart/{id}/{num}
+    defaults: { _controller: IbaseCartBundle:Cart:addToCart }
+    
+ibase_clear_cart:
+    pattern: /clearCart
+    defaults: { _controller: IbaseCartBundle:Cart:clearCart }
+    
+ibase_remove_cart:
+    pattern: /removeCart/{id}
+    defaults: { _controller: IbaseCartBundle:Cart:removeCart }
+    
+#ibase_remove:
+#    pattern: /removeProduct/{pids}
+#    defaults: { _controller: IbaseCartBundle:Cart:remove  }
+#    
+check_out:
+    pattern: /checkOut/
+    defaults: { _controller: IbaseCartBundle:Customer:create }
+    
+ibase_payment:
+    pattern: /payment
+    defaults: { _controller: IbaseCartBundle:Cart:payment }
+    
+ibase_pickUp:
+    pattern: /pickUp
+    defaults: { _controller: IbaseCartBundle:Cart:pickUp }
+
+bank_transfer:
+    pattern: /bank_transfer
+    defaults: { _controller: IbaseCartBundle:Cart:bankDirect }
+
+#ibase_paypal_prepare:
+#    pattern: /paypalCheckout/{purchase}
+#    defaults: { _controller: IbaseCartBundle:Cart:preparePaypal }
+    
+ibase_placeOrder:
+    pattern: /placeOrder
+    defaults: { _controller: IbaseCartBundle:Cart:orderBeforePaypal }
+    
+ibase_reorder:    
+    pattern: /paypalOrder/{orderNum}
+    defaults: { _controller: IbaseCartBundle:Cart:reorder }
+    
+ibase_numAjax:
+    pattern: /numAjax
+    defaults: { _controller: IbaseCartBundle:Cart:numAjax }
+    
+ibase_removeMore:
+    pattern: /multiDelAjax
+    defaults: { _controller: IbaseCartBundle:Cart:multiDelAjax }
+
+

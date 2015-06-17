@@ -1,0 +1,14 @@
+<div>
+{{ form_start(search_form) }}
+ <div>
+      {{form_errors(search_form.type)}}
+      {{form_label(search_form.type)}}
+      {{form_widget(search_form.type, {'attr': {'class': 'form-control'} }) }}
+ </div>
+ <div>
+      {{form_errors(search_form.keyword)}}
+      {{form_label(search_form.keyword)}}
+      {{form_widget(search_form.keyword, {'attr': {'class': 'form-control'} }) }}
+ </div>
+{{ form_end(search_form) }}    
+</div>

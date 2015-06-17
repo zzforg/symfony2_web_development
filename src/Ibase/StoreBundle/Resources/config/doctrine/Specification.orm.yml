@@ -1,0 +1,23 @@
+Ibase\StoreBundle\Entity\Specification:
+  type: entity
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    fieldName:
+      type: string
+      length: '255'
+      column: field_name
+      nullable: true
+    description:
+      type: text
+      length: '90000'
+      nullable: true
+  manyToOne:
+    product:
+      targetEntity: Product
+      inversedBy: specification
+  repositoryClass: Ibase\StoreBundle\Repository\SpecificationRepository
+

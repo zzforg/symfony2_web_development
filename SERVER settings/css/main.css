@@ -1,0 +1,230 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/02/2014, 7:58:44 PM
+    Author     : zhiguo
+*/
+
+@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('/fonts/glyphicons-halflings-regular.eot');
+    src: local('/fonts/glyphicons-halflings-regular'),
+    url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+    url('/fonts/glyphicons-halflings-regular.svg#font') format('image/svg+xml');
+}
+
+p {
+    padding: 1px;
+    margin: 1px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 100%;
+    letter-spacing: 0px;
+    line-height: 1.2em;
+    font-weight: normal;
+    font-style: normal;
+    text-transform: none;
+}
+
+body {
+    background-color: black;
+    height: 100%;
+/*    background-image: url('../img/backgrd.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100%;
+    margin: 0px;*/
+ }
+
+/*body:after {
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    height: 189%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+    content: "";
+    background:black;
+    opacity: .7;
+}*/
+
+#container {
+    background-color: white;
+    position: relative;
+    margin:0px auto;
+    width: 960px;
+    height: 100%;
+}
+
+#header{
+    background-color:#990000;
+    display: block;
+    margin:auto;
+    background-repeat: no-repeat;
+    height: 100%;
+    width:100%;
+}
+
+/* top navigation in style by Jue*/
+nav{
+    width: 960px;
+    height: 51px;
+    background: #464b4c;
+    border-top: 1px solid #353939;
+    border-bottom: 1px solid #2e3131;
+/*    background-image: -webkit-linear-gradient(top, black, #3f4344);
+    background-image: -moz-linear-gradient(top, black, #3f4344);
+    background-image: -o-linear-gradient(top, black, #3f4344);*/
+    background-image: linear-gradient(to bottom, black, #3f4344);
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* navigation here*/
+nav a {
+  -webkit-transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -o-transition: 0.1s ease-out;
+  transition: 0.1s ease-out;
+  -webkit-transition-property: background-color, line-height;
+  -moz-transition-property: background-color, line-height;
+  -o-transition-property: background-color, line-height;
+  transition-property: background-color, line-height;
+  display: block;
+  line-height: 36px;
+  color: #ddd;
+  text-decoration: none;
+  text-shadow: 0 -1px #2e3131;
+  border-left: 1px solid #4d5354;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid #353939;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+nav ul {
+    list-style: none;
+    position: relative;
+    border-left: 1px solid #353939;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    border-right: 1px solid #4d5354;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+nav a:hover {
+    background: #4d5354;
+    background: rgba(255, 255, 255, 0.05);
+}
+nav ul li {
+    float: left;
+    text-align: center;
+    color: white;
+}
+nav ul:after {
+    content: ""; 
+    clear: both; 
+    display: block;
+}
+nav ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-family: Corbel, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    font-style: normal;
+}
+nav ul li a:hover {
+   text-decoration: none;
+}
+nav p{
+    color:white;
+}
+nav li ul {
+    display: none;
+}
+nav li ul li {
+    float: none;
+}
+nav li:hover > ul {
+    display: block;
+    background-color: white;
+}
+nav ul ul{
+    border-radius: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 100%;
+}
+nav ul ul li a {
+    padding: 2px 0 0 2px;  
+    font-size: 0.95em;
+    font-weight: bold;
+    text-shadow: none;
+}
+/* navigation end*/
+
+.dropdown-menu {
+    min-width: 200px;
+    min-height: 50px;
+}
+/* End navi style*/
+
+
+#cartBtn {
+    position: absolute;
+    top: 57px;
+    right: 0px;
+}
+
+#cartBtn .btn{
+    color: white;
+/*    background-image: -webkit-linear-gradient(top, black, #3f4344);
+    background-image: -moz-linear-gradient(top, black, #3f4344);
+    background-image: -o-linear-gradient(top, black, #3f4344);*/
+    background-image: linear-gradient(to bottom, black, #3f4344);    
+    
+}
+
+#content {
+    height: 100%; /* temp */
+    margin: 5px auto;
+    min-height: 800px;
+    border-radius:0 0 5px 5px;
+/*    -moz-border-radius:0 0 5px 5px;
+    -webkit-border-radius: 0 0 5px 5px;*/
+    box-shadow:0 0 5px #ccc;
+    /*-moz-box-shadow:0 0 5px #ccc;*/
+    /*-webkit-box-shadow:0 0 5px #ccc;*/
+}
+
+#footer{
+    clear:both;
+    background-color:rgb(88,0,0);
+    height: 100%;
+    width:100%;
+    margin:0 auto;
+}
+
+#botList{
+    margin:0 auto;
+    width:800px;
+}
+
+.siteMap{
+    margin:0 auto;
+    float:left;
+    color:white;
+    list-style: none;
+}
+
+#botLine{
+    padding-top:30px;
+    clear:both;
+    overflow: hidden;
+    text-align: center;
+}

@@ -1,0 +1,52 @@
+Ibase\StoreBundle\Entity\Purchase:
+  type: entity
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+        initialValue: 100000
+    createdAt:
+      type: datetime
+      column: created_at
+      nullable: false
+    updatedAt:
+      type: datetime
+      column: updated_at
+      nullable: true
+    delivery_fee:
+      type: decimal
+      scale: 2
+      nullable: true
+    total_amount:
+      type: decimal
+      scale: 2
+      nullable: true
+    status:
+      type: string
+      length: 255
+      nullable: false
+    tracking_number:
+      type: string
+      nullable: true
+    carrier:
+      type: string
+      nullable: true
+  oneToMany:
+    purchasePerItem:
+      targetEntity: PurchasePerItem
+      mappedBy: purchase
+      onDelete: cascade
+  manyToOne:
+    customer:
+      targetEntity: Customer
+      inversedBy: purchase
+      joinColumns:
+        customer_id:
+          referencedColumnName: id
+      cascade: [ "all" ]
+  lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+  repositoryClass: Ibase\StoreBundle\Repository\PurchaseRepository

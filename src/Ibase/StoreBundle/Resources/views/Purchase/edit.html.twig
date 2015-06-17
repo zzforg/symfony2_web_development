@@ -1,0 +1,17 @@
+{% extends '::ibaseAdmin.html.twig' %}
+{% form_theme edit_form 'IbaseStoreBundle:Form:fields.html.twig' %}
+
+{% block section -%}
+<h3>Purchase edit</h3>
+
+    {{ form(edit_form, {'attr': { 'class': 'form-control'} }) }}
+
+        <ul style="margin-top: 380px">
+    <li>
+        <a href="{{ path('Purchase') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

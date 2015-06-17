@@ -1,0 +1,93 @@
+{% extends '::base.html.twig' %}
+{% block cartBtn %} {% endblock%}
+{% block body %}
+
+{% if success %}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3>Your request has been sent!</h3>
+    </div>
+    <div class="panel-body">
+        <div id="orderNum">
+            <p>
+                Dear <strong>{{customerDetails.firstname}}</strong>, 
+                your request has been sent to iBase successfully.
+                Please keep an copy of your order number: 
+                {% set orderNum = '100000' %}
+                {% set orderNum = "#{orderNum + purchase.id}" %}
+               <strong>{{orderNum}}</strong>.
+            </p>
+        </div>
+        <div id="invoice">
+            <p>
+                An email with payment details will be sent to 
+                <strong>{{customerDetails.email}}</strong> after Ibase
+                Ibase administrator add freight.
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Shipping</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 0..products|length-1 %}
+                    <tr>
+                        <td>{{products[i].name}}</td>
+                        <td>{{qty[i]}}</td>
+                        <td>{{products[i].price}}</td>
+                        <td>
+                            {% if products[i].freight is null%}
+                            Freight
+                            {% elseif products[i].freight == 0 %}
+                            Free
+                            {% else %}
+                            {{products[i].freight}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>Sub Total:</td>
+                        <td>${{purchase.getTotalAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>Deliver Fee:</td>
+                        <td>freight</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>Total:</td>
+                        <td>${{purchase.getTotalAmount}} + freight</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div> 
+        <a href="{{ path('product') }}" class="btn btn-primary btn-lg" 
+           role="button">Keep shopping</a>
+        <a href="{{ path('ibase_home') }}" class="btn btn-primary btn-lg" 
+           role="button">Ibase Home</a>
+        
+    </div>
+</div>
+{% else %}
+<div class="panel panel-danger">
+    <div class="panel-heading"><h1>Oops!</h1></div>
+    <div class="panel-body">
+        <div id="badOrder">
+            <p>Sorry! Your request was not successfully been submited, 
+                please try again.</p>
+            <a href="{{ path('ibase_list_cart') }}" class="btn btn-default btn-lg" 
+               role="button">Go back to cart</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock%}

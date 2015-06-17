@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+{% block cartBtn %} {% endblock%}
+{% block body %}
+{% if success %}
+{% set customerDetails = purchase.customer %}
+{% set products = purchase.purchasePerItem %}
+<div class="panel panel-success">
+    <div class="panel-heading"><h1>Your oder was successful!</h1></div>
+    <div class="panel-body">
+        <div id="orderNum">
+            <p>Products purchased:</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pro in products %}
+                    <tr>
+                        <td>{{pro.product.name}}</td>
+                        <td>{{pro.quantity}}</td>
+                        <td>{{pro.product.price}}</td>
+                    </tr>    
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            Total:${{purchase.getTotalAmount}}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <p>Please keep an copy of your order number: 
+                {% set orderNum = '100000' %}
+                {% set orderNum = "#{orderNum + purchase.id}" %}
+               <strong>{{orderNum}}</strong>.
+            </p>
+        </div>
+        <div id="invoice">
+            <p>An email has been sent to 
+{#                {% for j in customerDetails%}#}
+                <strong>{{customerDetails.email}}</strong>
+{#                {% endfor %}#}
+            </p>
+        </div>
+        <div id="pickUpAddress">
+            <h3>Our address: Unit 23, 256 Musgrave Rd, Coopers Plains, QLD, 4108.</h3>
+        </div>  
+        <a href="{{ path('ibase_home') }}" class="btn btn-primary btn-lg" 
+           role="button">Keep shopping</a>
+        
+    </div>
+</div>
+{% else %}
+<div class="panel panel-danger">
+    <div class="panel-heading"><h1>Oops!</h1></div>
+    <div class="panel-body">
+        <div id="badOrder">
+            <p>Sorry! Your order was not successfully been submited, 
+                please try again.</p>
+            <a href="{{ path('ibase_list_cart') }}" class="btn btn-default btn-lg" 
+               role="button">Go back to cart</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock%}

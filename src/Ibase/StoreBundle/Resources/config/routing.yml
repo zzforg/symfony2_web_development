@@ -1,0 +1,35 @@
+ibase_store_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: IbaseStoreBundle:Default:index }
+
+IbaseStoreBundle_Category:
+     resource: "@IbaseStoreBundle/Resources/config/routing/category.yml"
+     prefix:   /Category
+     
+IbaseStoreBundle_Product:
+        resource: "@IbaseStoreBundle/Resources/config/routing/product.yml"
+        prefix:   /product
+
+IbaseStoreBundle_Customer:
+        resource: "@IbaseStoreBundle/Resources/config/routing/customer.yml"
+        prefix:   /Customer
+        
+IbaseStoreBundle_Purchase:
+        resource: "@IbaseStoreBundle/Resources/config/routing/purchase.yml"
+        prefix:   /Purchase
+
+IbaseStoreBundle_Package:
+        resource: "@IbaseStoreBundle/Resources/config/routing/package.yml"
+        prefix:   /package
+        
+IbaseStoreBundle_Productperpackage:
+        resource: "@IbaseStoreBundle/Resources/config/routing/productperpackage.yml"
+        prefix:   /package_include
+        
+IbaseStoreBundle_Purchaseperitem:
+        resource: "@IbaseStoreBundle/Resources/config/routing/purchaseperitem.yml"
+        prefix:   /choose_a_item
+        
+IbaseStoreBundle_specification:
+        resource: "@IbaseStoreBundle/Resources/config/routing/specification.yml"
+        prefix:   /specification

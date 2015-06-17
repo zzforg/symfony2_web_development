@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+{% block header %}{% endblock %}
+{% block body %}
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+    <div style="background-color:#990000">
+        <img src="{{logo}}" alt="Ibase Trading" width="310" height="90" />
+    </div>
+    <div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+                <td align="center" valign="top" style="padding:20px 0 20px 0">
+                    <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
+                        <tr>
+                            <th>Your products are going to be shipped!</th>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <p>Dear {{order.customer.firstName}}:</p>
+                                {% set orderNum = '100000' %}
+                                {% set orderNum = "#{orderNum + order.getId}" %}
+                                <p>
+                                    Congradulations! Thank you for your purchasing.
+                                    You order (<strong>Oder Number: 
+                                    {{order}}</strong>) will be shipped 
+                                    soon! If there any further questions, please
+                                    contact us.
+                                </p>
+                                <br />
+                                <p>
+                                    Kind Regards,
+                                </p>
+                                <br />
+                                <p>
+                                    Ibase Trading Pty Ltd.
+                                </p>
+                                <br />
+                                <p>Contact</p>
+                                <p>Email:support@ibase-trading.com</p>
+                                <p>© Copyright 2014, Ibase.com</p>
+                                <p style="font-size:12px; line-height:16px; margin:0;">
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+       </table>
+    </div>
+</body>
+{% endblock%}
+{% block footer %}{% endblock %}    

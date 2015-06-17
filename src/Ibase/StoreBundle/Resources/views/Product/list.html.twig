@@ -1,0 +1,71 @@
+{% extends '::ibaseAdmin.html.twig' %}
+{% block section -%}
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id= "cka" class="checkAll" /></th>
+                <th>Order#</th>
+                <th>model</th>
+                <th>brand</th>
+                <th>price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><input type="checkbox" id= "{{entity.id}}" class="checkItem" /></td>
+            <script>
+                $(document).ready(function() {
+                $("input[type=checkbox]").prop("checked", false);
+                var checkedItem[];
+                $("#cka").click(function(){
+                    if(this.checked) {
+                        $('.checkItem').each(function() { 
+                            this.checked = true;
+                        });
+                    } else {
+                        $('.checkItem').each(function() { 
+                            this.checked = false;  
+                        });
+                    }
+                });
+                $("#toShip").click(function() {
+                    $.ajax( {
+                        type: "POST",
+                        url: "",
+                        data: {
+                            id: // to be completed
+                        }
+                    })
+                })
+            });
+            </script>
+                <td><a href="{{ path('Purchase_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.model }}</td>
+                <td>{{ entity.brand }}</td>
+                <td>{{ entity.price }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('product_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('product_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('product_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    </div>
+    {% endblock %}

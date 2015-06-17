@@ -1,0 +1,98 @@
+{% extends '::base.html.twig' %}
+{% block title %}
+    {{ paymentTitle }} - Details View"
+{% endblock %}
+
+{% block body %}
+<div class="payment_done">
+    <!-- Payment success -->
+    {% if status.success %}        
+    <div class="panel panel-success">
+        {% set orderNum = "#{order.getId + 10000}"%}
+        {% set products = order.purchasePerItem%}
+        <!-- Default panel contents -->
+        <div class="panel-heading">Success! - Order Number:{{orderNum}}</div>
+        <div class="panel-body">
+            <p>
+                Thanks for shopping on Ibase Trading online
+                store. Here is your order number:{{orderNum}}.
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Img</th>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pro in products %}
+                    {% if pro is null %}
+                    Sorry! Can't find the product details. Please contact the admin.
+                    {%endif%}
+                    {% set images = pro.product.images %}
+                    <tr>
+                        <td>
+                            {% if images|length > 0 %}
+                            <img src="{{images[0].getWebPath}}" 
+                                 alt="Ibase Trading" width='80px' height='80px'/>
+                            {% else %}
+                            <img src="" 
+                                 alt="no pic" width='80px' height='80px'/>
+                            {% endif %}
+                        </td>
+                        <td>{{pro.product.name}}</td>
+                        <td>{{pro.quantity}}</td>
+                        <td>{{pro.product.price}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="{{ path('ibase_home') }}" class="btn btn-primary btn-lg" 
+           role="button">iBASE Home</a>
+    </div>
+    {% else %}
+    <div class="panel panel-danger">
+        <div class="panel-heading">Oops!</div>
+        <div class="panel-body">
+            <div class="payment_status">
+                {% include "IbasePaymentBundle:PaypalExpress:_status.html.twig" with { 'status': status } only %}
+            </div>
+            {% if status.canceled%}
+            <p>You have just canceled the payment.</p>
+            {% elseif status.failed%}
+            <p>In some reason. Your payment was failed. If need help please contact the iBASE admin</p>
+            {% elseif status.pending%}
+            <p>In some reason. Your payment was pending. If need help please contact the iBASE admin</p>
+            {% elseif status.expired%}
+            <p>In some reason. Your payment was expired. If need help please contact the iBASE admin</p>
+            {% elseif status.suspended%}
+            <p>In some reason. Your payment was suspended. If need help please contact the iBASE admin</p>
+            {% else %}
+            <p>There is an unknown reason during the payment. If need help please contact the iBASE admin</p>
+            {% endif %}
+            <a href="{{ path('ibase_home') }}" class="btn btn-primary btn-lg" 
+           role="button">iBASE Home</a>
+        </div>
+    </div>
+    {% endif %} 
+</div>    
+ 
+
+<!-- Payment not success -->
+    
+{#<div class="block">
+    {% include "IbasePaymentBundle:PaypalExpress:_status.html.twig" with { 'status': status } only %}
+</div>
+
+<div class="block">
+    <h3>Status Details:</h3>
+    <ul>
+        {% for key, value in status.model %}
+            <li>{{ key }}: {{ value|json_encode|raw }}</li>
+        {% endfor %}
+    </ul>
+</div>#}
+{% endblock %}

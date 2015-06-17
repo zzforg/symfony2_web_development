@@ -1,0 +1,37 @@
+{% extends '::ibaseAdmin.html.twig' %}
+
+{% block section -%}
+    <h1>Product edit</h1>
+
+    {{ form_start(edit_form) }}
+    {# render the task's only field: description #}
+    {{ form_row(edit_form.name) }}
+
+    <h3>Specifications</h3>
+    <ul class="specifications" data-prototype="{{ form_widget(edit_form.specifications.vars.prototype)|e }}" >
+        {# iterate over each existing tag and render its only field: name #}
+        {% for specification in edit_form.specifications %}
+            <li>{{ form_row(specification.fieldName) }}
+                {{ form_row(specification.description) }}</li>
+        {% endfor %}
+    </ul>
+
+{{ form_end(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('product') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+    {% block javascripts %}
+    {% javascripts '@IbaseStoreBundle/Resources/public/js/jquery-1.8.3.min.js' 
+                   '@IbaseStoreBundle/Resources/public/js/add_specification.js'%}
+     <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endblock %}
+ 
+ 
+{% endblock %}

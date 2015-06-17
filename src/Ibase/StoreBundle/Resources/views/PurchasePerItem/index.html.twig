@@ -1,0 +1,46 @@
+{% block body -%}
+    <h1>PurchasePerItem list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('choose_a_item_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{entity.purchase}}</td>
+                <td>{{entity.product}}</td>
+                {%set item = entity.product %}
+                <td>{{item.price}}</td>
+                <td>{{ entity.quantity }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('choose_a_item_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('choose_a_item_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('choose_a_item_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

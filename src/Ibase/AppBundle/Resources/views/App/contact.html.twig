@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block body %}
+    <div id="breadcrumbs">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('ibase_home') }}">Home</a></li>
+            <li class="active">Contact</li>
+        </ol>
+    </div>
+    {{ render(controller('IbaseAppBundle:App:renderContact', { 'request' : app.request })) }}
+{% endblock %}

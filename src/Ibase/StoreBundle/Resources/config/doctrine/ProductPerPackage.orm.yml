@@ -1,0 +1,25 @@
+Ibase\StoreBundle\Entity\ProductPerPackage:
+  type: entity
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    quantity:
+      type: integer
+      nullable: true
+  manyToOne:
+    product:
+      targetEntity: Product
+      inversedBy: productPerPackage
+      joinColumns:
+        product_id:
+          referencedColumnName: id
+    package:
+      targetEntity: Package
+      inversedBy: productPerPackage
+      cascade: [ "all" ]
+      joinColumns:
+        package_id:
+          referencedColumnName: id

@@ -1,0 +1,234 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: @IbaseStoreBundle/Resources/config/admin.yml }
+    - { resource: @IbaseMailBundle/Resources/config/services.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [IbaseStoreBundle, IbaseCartBundle]
+    java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        cssembed:
+          jar: %kernel.root_dir%/Resources/java/cssembed-0.4.5.jar
+        yui_js:
+          jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar
+        lessphp:
+          file: %kernel.root_dir%/../vendor/oyejorge/less.php/lessc.inc.php
+          apply_to: "\.less$"
+    assets:
+        jquery_js:
+            inputs:
+                - '%kernel.root_dir%/../components/jquery/jquery.min.js'
+            filters: [?yui_js]
+        bootstrap_js:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/transition.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/alert.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/modal.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/dropdown.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/scrollspy.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/tab.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/tooltip.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/popover.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/button.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/collapse.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/carousel.js'
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/affix.js'
+            filters: [?yui_js]
+        bootstrap_less:
+            inputs:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/less/bootstrap.less'
+            filters: [lessphp,cssembed]
+        
+        dashboard:
+            input:
+                - '%kernel.root_dir%/../vendor/twitter/bootstrap/docs/examples/dashboard/dashboard.css'
+            filters: [lessphp,cssrewrite]
+
+# Doctrine Configuration
+
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: %kernel.root_dir%/data/data.db3
+        # path:     %database_path%
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+        
+        #for payment
+        mappings:
+            payum:
+                is_bundle: false
+                type: xml
+                dir: %kernel.root_dir%/../vendor/payum/core/Payum/Core/Bridge/Doctrine/Resources/mapping
+                prefix: Payum\Core\Model
+                        
+
+payum:
+    security:
+        token_storage:
+            Ibase\PaymentBundle\Entity\PaymentSecurityToken:
+                doctrine:
+                    driver: orm
+    storages:
+        Ibase\PaymentBundle\Entity\PaymentDetails:
+            doctrine: 
+                driver: orm
+            
+    contexts:
+        Ibase_paypal_express:
+            paypal_express_checkout_nvp:
+                username:  %paypal.express_checkout.username%
+                password:  %paypal.express_checkout.password%
+                signature: %paypal.express_checkout.signature%
+                sandbox: true
+#                apis:
+#                    - ibase.payment.payum.paypal_express_checkout_api
+#        a_context:
+#            a_factory:
+#                actions:
+#                    - ibase.payment.action.preparePaypalExpressCheckoutPayment
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+#    spool:     { type: memory }
+
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
+   
+    
+sonata_admin:
+    title:      Ibase Admin
+    title_logo: /images/ibase_logo.jpg
+    templates:
+        layout: IbaseStoreBundle::Admin/standard_layout.html.twig
+#    security:
+#        handler: sonata.admin.security.handler.role
+   
+sonata_doctrine_orm_admin:
+    # default value is null, so doctrine uses the value defined in the configuration
+    entity_manager: ~
+
+    templates:
+        form:
+            - SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig
+        filter:
+            - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
+        types:
+            list:
+                array:      SonataAdminBundle:CRUD:list_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:list_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:list_date.html.twig
+                time:       SonataAdminBundle:CRUD:list_time.html.twig
+                datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_list_field.html.twig
+                trans:      SonataAdminBundle:CRUD:list_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                identifier: SonataAdminBundle:CRUD:base_list_field.html.twig
+                currency:   SonataAdminBundle:CRUD:list_currency.html.twig
+                percent:    SonataAdminBundle:CRUD:list_percent.html.twig
+                choice:     SonataAdminBundle:CRUD:list_choice.html.twig
+                url:        SonataAdminBundle:CRUD:list_url.html.twig
+
+            show:
+                array:      SonataAdminBundle:CRUD:show_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:show_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:show_date.html.twig
+                time:       SonataAdminBundle:CRUD:show_time.html.twig
+                datetime:   SonataAdminBundle:CRUD:show_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_show_field.html.twig
+                trans:      SonataAdminBundle:CRUD:show_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_show_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
+                currency:   SonataAdminBundle:CRUD:base_currency.html.twig
+                percent:    SonataAdminBundle:CRUD:base_percent.html.twig
+                choice:     SonataAdminBundle:CRUD:show_choice.html.twig
+                url:        SonataAdminBundle:CRUD:show_url.html.twig
+
+#services:
+#    my_mailer:
+#        class:      "%my_mailer.class%"
+#        arguments:  ["%my_mailer.transport%"]
+#    newsletter_manager:
+#        class:      "%newsletter_manager.class%"
+#        calls:
+#            - [setMailer, ["@?my_mailer"]]
+#        arguments: ["@mailer", "@templating"]
+#    my.listener:
+#        class: Ibase\StoreBundle\Listener\SendEmail
+#        tags:
+#            - { name: doctrine.event_listener, event: postUpdate }
+#    ibase.oldCustomer:
+#        class: Ibase\StoreBundle\Listener\OldCustomer
+#        tags:
+#            - { name: doctrine.event_listener, event: setFlag }
+services:
+    ibase.mail.controller:
+        class:        Ibase\MailBundle\Controller\MailController
+        arguments:
+             service: "@service_container"
+        calls:
+            - [setContainer, ["@service_container"]]
+    my.listener:
+        class: Ibase\StoreBundle\Listener\SendEmail
+        arguments:
+              ibaseMailController: "@ibase.mail.controller"
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate }

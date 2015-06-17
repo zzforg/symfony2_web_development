@@ -1,0 +1,11 @@
+#ibase_payment_homepage:
+#    path:     /hello/{name}
+#    defaults: { _controller: IbasePaymentBundle:Default:index }
+#    
+ibase_paypal_prepare:
+    pattern: /paypalExpress
+    defaults: { _controller: IbasePaymentBundle:IbasePayment:preparePaypal }
+    
+ibase_payment_done:
+    pattern: /paypalDone
+    defaults: { _controller: IbasePaymentBundle:Details:done }

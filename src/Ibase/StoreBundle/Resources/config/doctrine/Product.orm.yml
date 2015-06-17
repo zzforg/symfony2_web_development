@@ -1,0 +1,68 @@
+Ibase\StoreBundle\Entity\Product:
+  type: entity
+  fields:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+      nullable: true
+    model:
+      type: string
+      length: 255
+      nullable: true
+    brand:
+      type: string
+      length: 255
+      nullable: true
+    color:
+      type: string
+      length: 255
+      nullable: true
+    material:
+      type: text
+      length: 2000
+      nullable: true
+    price:
+      type: decimal
+      scale: 2
+      nullable: true
+    freight:
+      type: decimal
+      scale: 2
+      nullable: true
+  oneToOne:
+    package:
+      targetEntity: Package
+      mappedBy: product   
+  oneToMany:
+    purchasePerItem:
+      targetEntity: PurchasePerItem
+      mappedBy: product
+      cascade: ["all" ]
+    productPerPackage:
+      targetEntity: ProductPerPackage
+      mappedBy: product
+      cascade: [ "remove" ]
+    specifications:
+      targetEntity: Specification
+      mappedBy: product
+      cascade: [ "persist","remove"]   
+    images:
+        targetEntity: Image
+        mappedBy: Product
+        cascade: ["persist","remove"]
+#  uniqueConstraints:
+#    search_idx:
+#      columns: [ name ]
+  manyToOne:
+    category:
+      targetEntity: Category
+      inversedBy: product
+      joinColumns:
+        category_id:
+          referencedColumnName: id
+  repositoryClass: Ibase\StoreBundle\Repository\ProductRepository

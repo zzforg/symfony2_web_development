@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+{% if entity %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{entity.getName}}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+                {% set columns = 3 %}
+                {% for product in entity.getProduct %}
+                {% set images = product.getImages %}
+                <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    {% if images is not null %}
+                        {% for img in images|slice(0, 1)%}
+                    <a href="{{ path('product_show', {'id':product.id })}}">
+                        <img src="{{ img.getWebPath }}" alt="{{product.name}}" />
+                    </a>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="caption">
+                        <h4><a href="{{ path('product_show', {'id':product.id })}}">{{ product.name }}</a></h4>
+                        <p>{{ product.model }}</p>
+                        <p>{{ product.brand }}</p>
+                        <p>${{ product.price }}</p>
+                        <p>
+                            <a href="{{path('product_show',{'id':product.id})}}" class="btn btn-danger" role="button">View Product</a> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Product not available</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            This product is comming soon!
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

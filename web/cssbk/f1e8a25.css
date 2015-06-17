@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/02/2014, 7:58:44 PM
+    Author     : zhiguo
+*/
+
+/*
+CSS for app bundle
+*/
+#hot .thumbnail{
+    height: 320px;
+}
+
+.thumbnail-img{
+    width: 120px;
+    height: 40%;
+}
+
+.thumbnail .caption{
+    padding: 0px;
+    height: 50%
+}
+
+.thumbnail .caption h5{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 40%;
+    margin: 0 auto;
+}
+
+.thumbnail .caption p{
+    height: 20%;
+}
+

@@ -1,0 +1,12 @@
+/* 
+    Created on : 18/04/2014, 1:28:53 AM
+    Author     : zhiguo
+*/
+
+.page_navi {
+    float: right;
+}
+
+.page_navi a{
+    width: 150px;
+}

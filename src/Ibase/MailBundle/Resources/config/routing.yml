@@ -1,0 +1,3 @@
+ibase_mail:
+    pattern:  /sendMail/{to}/{type}
+    defaults: { _controller: IbaseMailBundle:Mail:sendMail }

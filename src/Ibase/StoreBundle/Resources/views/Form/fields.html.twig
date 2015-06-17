@@ -1,0 +1,23 @@
+{% block form_row %}
+{% spaceless %}
+    <div class="control-group" style="margin-bottom: 10px">
+        {{ form_label(form, label|default(null)) }}
+        <div class="controls">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{#{% block generic_label %}
+{% set attr = attr|merge({'class': ''}) %}
+{% spaceless %}
+    {% if required %}
+        {% set attr = attr|merge({'class': 'required'}) %}
+    {% endif %}
+    <label{% for attrname,attrvalue in attr %} 
+   attrname = "{{attrvalue}}"
+   {% endfor %}>{{ label|trans }}</label>
+{% endspaceless %}
+{% endblock %}#}

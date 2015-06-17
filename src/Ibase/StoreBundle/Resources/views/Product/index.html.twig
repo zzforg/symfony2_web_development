@@ -1,0 +1,74 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'bundles/ibasestore/css/product.css'  filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+        
+{% block body -%}
+    <div class="panel panel-default">
+        {% for pro in entities %}
+        {% if loop.first %}
+        <div id="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('ibase_home') }}">Home</a></li>
+                <li><a href="{{ path('product') }}">All products</a></li>
+                <li class="active">{{pro.category}}</li>
+            </ol>
+        </div>
+        <div class="panel-heading">
+            <h3 class="panel-title">{{pro.category}}</h3>
+        </div>
+        {% endif%}
+        {% endfor %}
+        <div class="panel-body">
+            <div class="row">
+                    {% set columns = 3 %}
+                    {% for entity in entities %}
+                    {% set images = entity.getImages %}
+                
+                    {#{% if loop.first or loop.index0 is divisibleby(columns) %}{% endif %}#}
+                    <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                        <div class="thumbnail-img">
+                            {% if images is not null %}
+                                {% for img in images|slice(0, 1)%}
+    {#                        {% image img.getWebPath %}#}
+                            <a href="{{ path('product_show', {'id':entity.id })}}">
+                                <img src="{{ img.getWebPath }}" alt="{{entity.name}}" />
+                            </a>
+    {#                        {% endimage %}#}
+                                {% endfor %}
+                            {% elseif images is null%}
+                                <img src="" alt="No pic" height="200" width="200" />
+                            {% endif %}
+                        </div>
+                        <div class="caption">
+                            <h4><a href="{{ path('product_show', {'id':entity.id })}}">{{ entity.name }}</a></h4>
+                            <p>Model:{{ entity.model }}</p>
+                            <p>Brand:{{ entity.brand }}</p>
+                            <p>Hot Price:${{ entity.price }}</p>
+                            <p>
+                                <em>Shipping:</em>
+                                {% if entity.freight is null %}
+                                    Freight
+                                {% elseif entity.freight == 0 %}
+                                    Free Shipping
+                                {% else %}
+                                    {{entity.freight}}
+                                {% endif %}
+                            </p>
+                            <p>
+                                <a href="{{path('product_show',{'id':entity.id})}}" class="btn btn-danger" role="button">View Product</a> 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+ {% endblock %}

@@ -1,0 +1,30 @@
+{#This table is used when freight has not been added#}
+<table width="100%" border="1">
+    <tr>
+        <td>Img</td>
+        <td>Item#</th>
+        <th>Item title</th>
+        <th>Qty</th>
+        <th>Price</th>
+    </tr>
+    {% set products = order.purchasePerItem %}
+    {% for pros in products%}
+        {% set pro = pros.product %}
+    <tr>
+        {% if pro.images %}
+        <td><img src="ibasetrading.com.au/{{pro.images[0].getWebPath}}" width="50" height="50"/></td>
+        {% else %}
+        <td>No image</td>
+        {% endif %}
+        <td style="text-align:center;vertical-align:middle;">{{pro.getModel}}</td>
+        <td style="text-align:center;vertical-align:middle;">{{pro.name}}</td>
+        <td style="text-align:center;vertical-align:middle;">{{pros.quantity}}</td>
+        <td style="text-align:center;vertical-align:middle;">${{pro.price}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="5" style="text-align:center;vertical-align:middle;">
+            <strong>Total:${{order.getTotalAmount}}</strong>
+        </td>
+    </tr>
+</table>{# empty Twig template #}

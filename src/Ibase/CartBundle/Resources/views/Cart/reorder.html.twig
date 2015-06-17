@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+{% block cartBtn %} {% endblock%}
+{% block body %}
+
+{% if success %}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        {% set orderNum = '100000' %}
+        {% set orderNum = "#{orderNum + purchase.id}" %}
+        <h1>PayPal Express Checkout - Order: <strong>{{orderNum}}</strong></h1>
+    </div>
+    <div class="panel-body">
+        <div id="orderNum">
+            <p>
+{#                Order number: 
+                {% set orderNum = '100000' %}
+                {% set orderNum = "#{orderNum + purchase.id}" %}
+               <strong>{{orderNum}}</strong>.
+            </p>#}
+            <p>
+                Dear <strong>{{customerDetails.firstname}}</strong>, 
+                Here is your order detials:
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in 0..products|length-1 %}
+                    <tr>
+                        <td>{{products[i].name}}</td>
+                        <td>{{qty[i]}}</td>
+                        <td>{{products[i].price}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    {% set total = "#{purchase.getTotalAmount + purchase.getDeliveryFee}"%}
+                    <tr>
+                        <td></td>
+                        <td>Sub Total:</td>
+                        <td>${{purchase.getTotalAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Delivery Fee:</td>
+                        <td>${{purchase.getDeliveryFee}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total:</td>
+                        <td>${{total}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <a href="{{url}}">
+            <img src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif' 
+                       border='0' align='top' alt='Check out with PayPal'/>
+        </a>
+        <p>or Contact us</p>
+        
+    </div>
+</div>
+{% endif %}
+{% endblock%}

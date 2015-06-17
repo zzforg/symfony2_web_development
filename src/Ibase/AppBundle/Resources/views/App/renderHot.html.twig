@@ -1,0 +1,38 @@
+<div id="hot" class="row">
+    {% for entity in products|slice(0, 6) %}
+    {% set images = entity.getImages %}
+    <div class="col-sm-6 col-md-2">
+        <div class="thumbnail">
+            <div class="thumbnail-img">
+                {% if images is not null %}
+                    {% for img in images|slice(0, 1)%}
+                <a href="{{ path('product_show', {'id':entity.id })}}">
+                    <img src="{{ img.getWebPath }}" alt="{{entity.name}}" />
+                </a>
+                    {% endfor %}
+                {% elseif images is null%}
+                    <img src="" alt="No pic" height="200" width="200" />
+                {% endif %}
+            </div>
+            <div class="caption">
+                <h5><a href="{{ path('product_show', {'id':entity.id })}}">{{ entity.name }}</a></h5>
+                <p>Hot Price:${{ entity.price }}</p>
+                <p>
+                    <em>Shipping:</em>
+                    {% if entity.freight is null %}
+                        Freight
+                    {% elseif entity.freight == 0 %}
+                        Free Shipping
+                    {% else %}
+                        {{entity.freight}}
+                    {% endif %}
+                </p>
+                <p>
+                    <a href="{{path('product_show',{'id':entity.id})}}" class="btn btn-danger" role="button">View Product</a> 
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+

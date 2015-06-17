@@ -1,0 +1,9 @@
+parameters:
+    ibase.controller.mail.class: Ibase\MailBundle\Controller\MailController
+
+services:
+    ibase.mail.controller:
+        class: "%ibase.controller.mail.class%"
+#    ibase_mail.example:
+#        class: %ibase_mail.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
